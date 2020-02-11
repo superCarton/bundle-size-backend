@@ -8,13 +8,15 @@ Computes the size of NPM modules when they will be injected in a bundle, minifie
 
 Run the following commands in a terminal to run locally the server
 ```
-yarn install
+yarn
 yarn start
 ```
 
 ### Call from the frontend
 
-The unique enpoint is on root '/' with a single query parameter 'package' using GET method.
+```
+http://localhost:8080/package-sizes?package=PACKAGE_NAME
+```
 
 ## Computation
 
@@ -24,8 +26,11 @@ Creates an entry point file importing the desired package. The backend compiles 
 
 A simple caching system keeps in memory the sizes of the computed packages.
 
+## Logging
+
+Logs in `serverlogs.log`
+
 ## Improvements TODO
 
-- Logging system.
 - Swagger specifications of the API to define the contract between backend and frontend. This would allow interfaces code generation and runtime calls validation.
 - Create call endpoint allowing to specify the package and the version desired.
