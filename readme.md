@@ -14,7 +14,9 @@ yarn start
 
 ### Call from the frontend
 
-The unique enpoint is on root '/' with a single query parameter 'package' using GET method.
+```
+http://localhost:8080/package-sizes?package=PACKAGE_NAME
+```
 
 ## Computation
 
@@ -23,6 +25,10 @@ Creates an entry point file importing the desired package. The backend compiles 
 ## Caching system
 
 A simple caching system keeps in memory the sizes of the computed packages.
+
+## Logging
+
+Logs in `serverlogs.log`
 
 ## Improvements TODO
 

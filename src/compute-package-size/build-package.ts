@@ -4,6 +4,7 @@ import * as webpack from 'webpack';
 import { makeWebpackConfig } from './config';
 import { resolve } from 'path';
 import * as builtInModules from 'builtin-modules';
+import { logger } from '../app';
 
 /**
  * Create an entry points importing the desired library. 
@@ -11,12 +12,16 @@ import * as builtInModules from 'builtin-modules';
  * @param installPath 
  * @param isEsModule 
  */
-export function createEntryPoint(packageName: string, installPath: string, isEsModule: boolean = true) {
-
-  const entryPath = join(installPath, 'index.js');
-  let importStatement = isEsModule ? `import * as p from '${packageName}'; console.log(p);` : `const p = require('${packageName}'); console.log(p);`;
-  writeFileSync(entryPath, importStatement, 'utf-8');
-  return resolve(entryPath);
+export function createEntryPoint(packageName: string, installPath: string, isEsModule: boolean = true): string | undefined {
+  try {
+    const entryPath = join(installPath, 'index.js');
+    let importStatement = isEsModule ? `import * as p from '${packageName}'; console.log(p);` : `const p = require('${packageName}'); console.log(p);`;
+    logger.debug(`creating entry point [${entryPath}]`);
+    writeFileSync(entryPath, importStatement, 'utf-8');
+    return resolve(entryPath);
+  } catch (e) {
+    logger.error(`Error during entry point creation in ${installPath}`);
+  }
 }
 
 /**
